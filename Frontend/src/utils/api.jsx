@@ -66,5 +66,3 @@ const fetchStockData = async () => {
 };
 
 export { applyFilters, fetchStockData };
-
-

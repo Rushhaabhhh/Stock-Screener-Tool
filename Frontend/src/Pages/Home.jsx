@@ -10,32 +10,41 @@ import { applyFilters, fetchStockData } from '../utils/api';
 const Home = () => {
   const [searchParams] = useSearchParams();
   const [stocks, setStocks] = useState([]);
+  const [filteredStocks, setFilteredStocks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState(searchParams.get('query') || '');
 
   useEffect(() => {
     const fetchStocks = async () => {
       setLoading(true);
       try {
         const stockData = await fetchStockData();
-        const query = searchParams.get('query') || '';
-        const filteredStocks = applyFilters(query, stockData);
-        setStocks(filteredStocks);
-        setTotalPages(Math.ceil(filteredStocks.length / 10));
+        const resultStocks = query ? applyFilters(query, stockData) : stockData;
+
+        setStocks(stockData);
+        setFilteredStocks(resultStocks);
+        setTotalPages(Math.ceil(resultStocks.length / 10));
       } catch (error) {
         console.error('Error fetching stocks:', error);
       } finally {
         setLoading(false);
       }
     };
-  
+
     fetchStocks();
-  }, [searchParams]);
+  }, [query]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+
+  const handleFilterSubmit = (newQuery) => {
+    setQuery(newQuery);
+  };
+
+  const paginatedStocks = filteredStocks.slice((currentPage - 1) * 10, currentPage * 10);
 
   return (
     <motion.div
@@ -46,13 +55,17 @@ const Home = () => {
     >
       <Navbar />
       <div className="max-w-6xl mx-auto py-8 px-4">
-        <FilterForm />
+        <FilterForm onSubmit={handleFilterSubmit} /> {/* Pass handleFilterSubmit as onSubmit prop */}
         {loading ? (
           <div>Loading...</div>
         ) : (
           <>
-            <StockTable stocks={stocks.slice((currentPage - 1) * 10, currentPage * 10)} />
-            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+            <StockTable stocks={paginatedStocks} />
+            <Pagination 
+              currentPage={currentPage} 
+              totalPages={totalPages} 
+              onPageChange={handlePageChange} 
+            />
           </>
         )}
       </div>

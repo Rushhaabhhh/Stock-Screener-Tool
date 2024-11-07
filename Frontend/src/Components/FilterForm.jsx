@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-const FilterForm = () => {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  
-  const [query, setQuery] = useState(searchParams.get('query') || '');
-  const [filterByDate, setFilterByDate] = useState(false); 
+const FilterForm = ({ onSubmit }) => {
+  const [query, setQuery] = useState('');
+  const [filterByDate, setFilterByDate] = useState(false);
 
   const handleInputChange = (e) => {
     setQuery(e.target.value);
@@ -19,8 +15,7 @@ const FilterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const queryParam = new URLSearchParams({ query }).toString();
-    navigate(`?${queryParam}`);
+    onSubmit(query);  // Pass the query value to the parent component's onSubmit handler
   };
 
   return (
@@ -40,7 +35,6 @@ const FilterForm = () => {
               value={query}
               onChange={handleInputChange}
               className="w-full h-24 px-4 py-2 rounded-md border-2 border-gray-300"
-              placeholder="Market capitalization > 500 AND P/E Ratio < 15 AND ROE > 22"
             />
             <div className="flex items-center space-x-2">
               <input
@@ -62,7 +56,7 @@ const FilterForm = () => {
             </button>
           </form>
         </div>
-
+        
         {/* Custom query example */}
         <div className="flex-1 p-4 border rounded-md bg-blue-50 border-blue-300 max-w-s">
           <p className="text-2xl pb-2">Custom query example</p>
