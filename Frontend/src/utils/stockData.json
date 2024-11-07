@@ -1,0 +1,51 @@
+[
+    {
+      "symbol": "AAPL",
+      "marketCap": 2500,
+      "peRatio": 18,
+      "roe": 20,
+      "debtToEquity": 0.5,
+      "dividendYield": 1.5,
+      "revenueGrowth": 10,
+      "epsGrowth": 12,
+      "currentRatio": 1.8,
+      "grossMargin": 45
+    },
+    {
+      "symbol": "MSFT",
+      "marketCap": 2100,
+      "peRatio": 25,
+      "roe": 30,
+      "debtToEquity": 0.3,
+      "dividendYield": 1.2,
+      "revenueGrowth": 15,
+      "epsGrowth": 20,
+      "currentRatio": 2.5,
+      "grossMargin": 50
+    },
+    {
+      "symbol": "TSLA",
+      "marketCap": 700,
+      "peRatio": 35,
+      "roe": 10,
+      "debtToEquity": 0.9,
+      "dividendYield": 0,
+      "revenueGrowth": 25,
+      "epsGrowth": 30,
+      "currentRatio": 1.2,
+      "grossMargin": 30
+    },
+    {
+      "symbol": "GOOGL",
+      "marketCap": 1500,
+      "peRatio": 22,
+      "roe": 25,
+      "debtToEquity": 0.4,
+      "dividendYield": 0,
+      "revenueGrowth": 8,
+      "epsGrowth": 15,
+      "currentRatio": 3.0,
+      "grossMargin": 60
+    }
+  ]
+  
