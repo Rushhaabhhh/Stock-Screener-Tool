@@ -1,29 +1,39 @@
 import React from 'react';
 
 const StockTable = ({ stocks }) => {
-  if (!stocks || stocks.length === 0) {
-    return <p>No stocks available</p>;
-  }
-
   return (
-    <table>
-      <thead>
-        <tr>
-          {Object.keys(stocks[0] || {}).map((key) => (
-            <th key={key}>{key}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {stocks.map((stock, index) => (
-          <tr key={index}>
-            {Object.keys(stock || {}).map((key) => (
-              <td key={key}>{stock[key]}</td>
-            ))}
+    <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+      <table className="min-w-full table-auto">
+        <thead>
+          <tr className="bg-gray-200">
+            <th className="px-4 py-2 text-left">Market Capitalization</th>
+            <th className="px-4 py-2 text-left">P/E Ratio</th>
+            <th className="px-4 py-2 text-left">ROE (%)</th>
+            <th className="px-4 py-2 text-left">Debt-to-Equity</th>
+            <th className="px-4 py-2 text-left">Dividend Yield (%)</th>
+            <th className="px-4 py-2 text-left">Revenue Growth (%)</th>
+            <th className="px-4 py-2 text-left">EPS Growth (%)</th>
+            <th className="px-4 py-2 text-left">Current Ratio</th>
+            <th className="px-4 py-2 text-left">Gross Margin (%)</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {stocks.map((stock, index) => (
+            <tr key={index}>
+              <td className="px-4 py-2">{stock['Market Capitalization (B)']}</td>
+              <td className="px-4 py-2">{stock['P/E Ratio']}</td>
+              <td className="px-4 py-2">{stock['ROE (%)']}</td>
+              <td className="px-4 py-2">{stock['Debt-to-Equity Ratio']}</td>
+              <td className="px-4 py-2">{stock['Dividend Yield (%)']}</td>
+              <td className="px-4 py-2">{stock['Revenue Growth (%)']}</td>
+              <td className="px-4 py-2">{stock['EPS Growth (%)']}</td>
+              <td className="px-4 py-2">{stock['Current Ratio']}</td>
+              <td className="px-4 py-2">{stock['Gross Margin (%)']}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

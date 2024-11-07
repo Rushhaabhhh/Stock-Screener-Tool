@@ -5,26 +5,32 @@ import Navbar from '../Components/Navbar';
 import StockTable from '../Components/StockTable';
 import FilterForm from '../Components/FilterForm';
 import Pagination from '../Components/Pagination';
-import getFilteredStocks from '../utils/api';
+import { applyFilters, fetchStockData } from '../utils/api';
 
 const Home = () => {
   const [searchParams] = useSearchParams();
   const [stocks, setStocks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchStocks = async () => {
-      const filters = {
-        marketCap: searchParams.get('marketCap') || '',
-        peRatio: searchParams.get('peRatio') || '',
-        roe: searchParams.get('roe') || '',
-      };
-      const data = await getFilteredStocks(filters);
-      setStocks(data);
-      setTotalPages(Math.ceil(data.length / 10));
+      setLoading(true); // Set loading state to true
+      try {
+        const stockData = await fetchStockData(); // Fetch stock data from CSV
+        const query = searchParams.get('query') || ''; // Get the query from URL params
+        const filteredStocks = applyFilters(query, stockData); // Apply filters to the data
+        setStocks(filteredStocks); // Set filtered stock data
+        setTotalPages(Math.ceil(filteredStocks.length / 10)); // Set total pages based on filtered data
+      } catch (error) {
+        console.error('Error fetching stocks:', error);
+      } finally {
+        setLoading(false); // Set loading to false once the fetching is done
+      }
     };
-    fetchStocks();
+
+    fetchStocks(); // Fetch stocks on mount or when query changes
   }, [searchParams]);
 
   const handlePageChange = (page) => {
@@ -41,8 +47,14 @@ const Home = () => {
       <Navbar />
       <div className="max-w-6xl mx-auto py-8 px-4">
         <FilterForm />
-        <StockTable stocks={stocks.slice((currentPage - 1) * 10, currentPage * 10)} />
-        <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <>
+            <StockTable stocks={stocks.slice((currentPage - 1) * 10, currentPage * 10)} />
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+          </>
+        )}
       </div>
     </motion.div>
   );
