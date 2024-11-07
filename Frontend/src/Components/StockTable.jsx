@@ -3,6 +3,7 @@ import React from 'react';
 const StockTable = ({ stocks }) => {
   return (
     <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+      {stocks.length > 0 ? (
       <table className="min-w-full table-auto">
         <thead>
           <tr className="bg-gray-200">
@@ -32,7 +33,9 @@ const StockTable = ({ stocks }) => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> ) : (
+      <div className="p-4 text-center">No data to display</div>
+    )}
     </div>
   );
 };

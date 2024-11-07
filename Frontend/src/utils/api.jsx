@@ -1,5 +1,6 @@
 import Papa from 'papaparse';
 
+
 const applyFilters = (query, stockData) => {
   const filters = parseQuery(query);
   return getFilteredStocks(filters, stockData);
@@ -10,7 +11,7 @@ const getFilteredStocks = (filters, stockData) => {
     return filters.every((filter) => {
       const stockValue = stock[filter.field];
       if (typeof stockValue !== 'number') {
-        return true; // Skip filtering if the value is not a number
+        return true; 
       }
       switch (filter.operator) {
         case '>':
@@ -34,7 +35,15 @@ const parseQuery = (query) => {
   const conditions = query.split('AND').map((condition) => condition.trim());
   const filters = conditions.map((condition) => {
     const [field, operator, value] = condition.split(' ');
-    return { field, operator, value: parseFloat(value) };
+    let parsedValue;
+    if (value === 'true' || value === 'false') {
+      parsedValue = value === 'true';
+    } else if (!isNaN(parseFloat(value))) {
+      parsedValue = parseFloat(value);
+    } else {
+      parsedValue = value;
+    }
+    return { field, operator, value: parsedValue };
   });
   return filters;
 };

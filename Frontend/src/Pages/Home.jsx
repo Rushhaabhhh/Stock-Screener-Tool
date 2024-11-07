@@ -16,21 +16,21 @@ const Home = () => {
 
   useEffect(() => {
     const fetchStocks = async () => {
-      setLoading(true); // Set loading state to true
+      setLoading(true);
       try {
-        const stockData = await fetchStockData(); // Fetch stock data from CSV
-        const query = searchParams.get('query') || ''; // Get the query from URL params
-        const filteredStocks = applyFilters(query, stockData); // Apply filters to the data
-        setStocks(filteredStocks); // Set filtered stock data
-        setTotalPages(Math.ceil(filteredStocks.length / 10)); // Set total pages based on filtered data
+        const stockData = await fetchStockData();
+        const query = searchParams.get('query') || '';
+        const filteredStocks = applyFilters(query, stockData);
+        setStocks(filteredStocks);
+        setTotalPages(Math.ceil(filteredStocks.length / 10));
       } catch (error) {
         console.error('Error fetching stocks:', error);
       } finally {
-        setLoading(false); // Set loading to false once the fetching is done
+        setLoading(false);
       }
     };
-
-    fetchStocks(); // Fetch stocks on mount or when query changes
+  
+    fetchStocks();
   }, [searchParams]);
 
   const handlePageChange = (page) => {
