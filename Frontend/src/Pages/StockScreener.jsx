@@ -203,11 +203,11 @@ const StockScreener = () => {
               <div>
                 <h3 className="text-xl font-semibold mb-3">Custom query example</h3>
                 <p className="text-gray-600 mb-4 text-lg">
-                  Market capitalization &gt; 300 AND<br />
+                  Market Capitalization &gt; 300 AND<br />
                   P/E Ratio &lt; 15 AND<br />
                   ROE &gt; 22
                 </p>
-                <a href="/guide" className="text-blue-600 hover:text-blue-700 hover:underline text-md">
+                <a href="/" className="text-blue-600 hover:text-blue-700 hover:underline text-md">
                   Detailed guide on creating screens
                 </a>
               </div>
