@@ -11,7 +11,8 @@ This project is a demonstration of how to build a stock screening tool using Rea
 - Pagination : Results will be paginated if more than 10 stocks are displayed.
 - Sorting Functionality : Sort stocks by any of the 9 parameters (Market Capitalization, P/E Ratio, ROE, etc.).
 
-  ![image](https://github.com/user-attachments/assets/386bdbd4-813a-42b5-9a8d-f09f993a35f6)
+
+https://github.com/user-attachments/assets/31c71536-55f6-4036-948d-ac5438003ac4
 
 
 ## Installation & Setup
