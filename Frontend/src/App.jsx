@@ -1,9 +1,14 @@
 import React from 'react';
-import Home from './Pages/Home';
+import StockScrenner from './Pages/StockScreener';
+import {Routes, Route} from 'react-router-dom';
 
 function App() {
   return (
-    <Home />
+    
+    <Routes>
+      <Route path="/" element={<StockScrenner />} />
+    </Routes>
+
   );
 }
 
