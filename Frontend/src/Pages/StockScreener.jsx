@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Play, FlaskConicalIcon } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Play, FlaskConicalIcon, ArrowUpDown} from 'lucide-react';
 import { motion } from 'framer-motion';
 import Papa from 'papaparse';
 import Navbar from '../Components/Navbar';
@@ -24,6 +24,7 @@ const StockScreener = () => {
   const [query, setQuery] = useState('');
   const [filterByDate, setFilterByDate] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   const stocksPerPage = 10;
 
   useEffect(() => {
@@ -118,12 +119,21 @@ const StockScreener = () => {
     setCurrentPage(1);
   };
 
-  const handleInputChange = (e) => {
-    setQuery(e.target.value);
-  };
-
-  const handleCheckboxChange = () => {
-    setFilterByDate(!filterByDate);
+  // Sort functionality
+  const handleSort = (key) => {
+    let direction = 'asc';
+    if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+    
+    const sorted = [...filteredStocks].sort((a, b) => {
+      if (a[key] < b[key]) return direction === 'asc' ? -1 : 1;
+      if (a[key] > b[key]) return direction === 'asc' ? 1 : -1;
+      return 0;
+    });
+    
+    setFilteredStocks(sorted);
   };
 
   // Pagination calculations
@@ -234,13 +244,17 @@ const StockScreener = () => {
                     Stock Name
                   </th>
                   {PARAMETERS.map((param) => (
-                    <th
-                      key={param.id}
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
+                  <th
+                    key={param.id}
+                    className="px-4 py-3 text-left text-sm font-semibold text-gray-600 cursor-pointer"
+                    onClick={() => handleSort(param.id)}
+                  >
+                    <div className="flex items-center gap-2">
                       {param.label}
-                    </th>
-                  ))}
+                      <ArrowUpDown size={16} />
+                    </div>
+                  </th>
+                ))}
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">

@@ -5,7 +5,6 @@ import StockScrenner from './Pages/StockScreener';
 
 function App() {
   return (
-    
     <Routes>
       <Route path="/" element={<StockScrenner />} />
     </Routes>
