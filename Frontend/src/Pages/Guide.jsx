@@ -9,7 +9,7 @@ const Guide = () => {
         <section className="bg-white rounded-lg shadow-sm p-6 mb-6">
           <h2 className="text-2xl font-semibold mb-4">Introduction</h2>
           <p className="text-gray-600">
-            In this guide, you’ll learn how to create queries for filtering stocks based on key parameters like 
+            In this guide, you'll learn how to create queries for filtering stocks based on key parameters like 
             Market Capitalization, P/E Ratio, ROE, and more. Follow the examples to construct effective queries 
             for your search.
           </p>
