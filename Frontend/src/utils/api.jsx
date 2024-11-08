@@ -1,6 +1,5 @@
 import Papa from 'papaparse';
 
-
 const applyFilters = (query, stockData) => {
   const filters = parseQuery(query);
   return getFilteredStocks(filters, stockData);
@@ -11,7 +10,7 @@ const getFilteredStocks = (filters, stockData) => {
     return filters.every((filter) => {
       const stockValue = stock[filter.field];
       if (typeof stockValue !== 'number') {
-        return true; 
+        return true;
       }
       switch (filter.operator) {
         case '>':
@@ -49,7 +48,7 @@ const parseQuery = (query) => {
 };
 
 const fetchStockData = async () => {
-  const response = await fetch('./StockDataset.csv');
+  const response = await fetch('https://raw.githubusercontent.com/Rushhaabhhh/Stock-Screener-Tool/refs/heads/main/StockDataset.csv');
   const csvText = await response.text();
   return new Promise((resolve, reject) => {
     Papa.parse(csvText, {

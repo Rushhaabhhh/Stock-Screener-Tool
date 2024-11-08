@@ -55,7 +55,7 @@ const Home = () => {
     >
       <Navbar />
       <div className="max-w-6xl mx-auto py-8 px-4">
-        <FilterForm onSubmit={handleFilterSubmit} /> {/* Pass handleFilterSubmit as onSubmit prop */}
+        <FilterForm onSubmit={handleFilterSubmit} /> 
         {loading ? (
           <div>Loading...</div>
         ) : (
